@@ -1,0 +1,93 @@
+﻿<Window x:Class="EverisHandOnWPF2.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:sys="clr-namespace:System;assembly=mscorlib"
+        xmlns:models="clr-namespace:EverisHandOnWPF2"
+        xmlns:local="clr-namespace:EverisHandOnWPF"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Window.Resources>
+        <DataTemplate x:Key="TemplateListaClientes">
+            
+            <StackPanel>
+                <TextBlock x:Name="nome" Text="{Binding NomeCliente}"></TextBlock>
+                <TextBlock x:Name="genero" Padding="10,0,0,0" Text="{Binding Genero}"></TextBlock>
+            </StackPanel>
+
+            <DataTemplate.Triggers>
+                <DataTrigger Binding="{Binding Genero}" Value="Masculino">
+                    <Setter TargetName="genero" Property="Foreground" Value="Blue"></Setter>
+                </DataTrigger>
+
+                <DataTrigger Binding="{Binding Genero}" Value="Feminino">
+                    <Setter TargetName="genero" Property="Foreground" Value="Pink"></Setter>
+                </DataTrigger>
+            </DataTemplate.Triggers>                   
+        </DataTemplate>
+     </Window.Resources>
+                                     
+         <DockPanel>
+            <Menu DockPanel.Dock="Top">
+                <MenuItem Header="Aplicacao"></MenuItem>
+                <MenuItem Header="Editar"></MenuItem>
+            </Menu>
+             
+            <Border DockPanel.Dock="Left" BorderThickness="1" BorderBrush="Gray" Width="200">
+            <ListView x:Name="listaClientes" ItemTemplate="{StaticResource TemplateListaClientes}" SelectionChanged="ListView_SelectionChanged">
+                <models:Cliente NomeCliente="Cliente 1" Genero="Masculino"></models:Cliente>
+                <models:Cliente NomeCliente="Cliente 2" Genero="Feminino"></models:Cliente>
+                <models:Cliente NomeCliente="Cliente 3" Genero="Masculino"></models:Cliente>
+            </ListView>
+             </Border>
+            <DockPanel>
+            <Border DockPanel.Dock="Bottom" BorderThickness="0,1,0,0" Padding="10" BorderBrush="Gray">
+                <WrapPanel>
+                    <Button Click="BtnSalvarClick">Salvar</Button>
+                    <Button Style="{StaticResource BotaoVermelho}">Apagar</Button>
+                    <Button Click="BtnCancelarClick">Cancelar</Button>
+                </WrapPanel>
+            </Border>
+
+            <StackPanel>
+                <TextBlock Text="Nome do Cliente">
+                    <TextBlock.Resources>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="Foreground" Value="Purple"></Setter>
+                        </Style>
+                    </TextBlock.Resources>
+                </TextBlock>
+
+                <TextBox x:Name="nomeCliente"></TextBox>
+
+                <TextBlock Margin="0,20,0,0">Gênero</TextBlock>
+                <ComboBox x:Name="cmbGenero">
+                    <ComboBoxItem>Masculino</ComboBoxItem>
+                    <ComboBoxItem>Feminino</ComboBoxItem>
+                    <ComboBoxItem>Outro</ComboBoxItem>
+                </ComboBox>
+
+                <TextBlock Margin="0,20,0,0">Prefêrencias de Filmes</TextBlock>
+                <StackPanel>
+                    <CheckBox x:Name="chbTerror">Terror</CheckBox>
+                    <CheckBox x:Name="chbAdventure">Adventure</CheckBox>
+                    <CheckBox x:Name="chbRomance">Romance</CheckBox>
+                    <CheckBox x:Name="chbOutros">Outros</CheckBox>
+                </StackPanel>
+
+                <TextBlock Margin="0,20,0,0">Estado Civil</TextBlock>
+                <StackPanel>
+                    <RadioButton x:Name="rdSolteiro" GroupName="rdEstadoCivil">Solteiro</RadioButton>
+                    <RadioButton x:Name="rdCasado" GroupName="rdEstadoCivil">Casado</RadioButton>
+                    <RadioButton x:Name="rdDivorciado" GroupName="rdEstadoCivil">Divorciado</RadioButton>
+                    <RadioButton x:Name="rdViuvo" GroupName="rdEstadoCivil">Viuvo</RadioButton>
+                </StackPanel>
+
+                <TextBlock Margin="0,20,0,0">Data de Nascimento</TextBlock>
+                <DatePicker x:Name="dpDataNascimento"></DatePicker>
+            </StackPanel>
+        </DockPanel>
+    </DockPanel>
+
+</Window>
